@@ -17,6 +17,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import eu.haslgruebler.core.ui.api.AssetStack;
 import eu.haslgruebler.core.ui.api.MenuItem;
 
 /**
@@ -29,6 +30,8 @@ import eu.haslgruebler.core.ui.api.MenuItem;
 public class CoreWebConfiguration extends WebMvcConfigurerAdapter {
 
     private List<MenuItem> menuItemList;
+
+    private List<AssetStack> assetStack;
 
     /**
      * 
@@ -68,6 +71,33 @@ public class CoreWebConfiguration extends WebMvcConfigurerAdapter {
         return viewResolver;
     }
 
+    /**
+     * 
+     * @return {@link AngularAssetStack}
+     */
+    @Bean
+    public AngularAssetStack angularAssetStack() {
+        return new AngularAssetStack();
+    }
+
+    /**
+     * 
+     * @return {@link JQueryAssetStack}
+     */
+    @Bean
+    public JQueryAssetStack jQueryAssetStack() {
+        return new JQueryAssetStack();
+    }
+
+    /**
+     * 
+     * @return {@link AngularGridAssetStack}
+     */
+    @Bean
+    public AngularGridAssetStack angularGridAssetStack() {
+        return new AngularGridAssetStack();
+    }
+
     @Autowired(required = false)
     public void setMenuItemList(List<MenuItem> menuItemList) {
         this.menuItemList = menuItemList;
@@ -90,12 +120,27 @@ public class CoreWebConfiguration extends WebMvcConfigurerAdapter {
      */
     @Bean
     public CoreWebController coreWebController() {
-        return new CoreWebController(getMenuItemList());
+        return new CoreWebController(getMenuItemList(), getAssetStack());
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/core-javascript/**").addResourceLocations("classpath:/core/");
+        registry.addResourceHandler("/core-resources/**").addResourceLocations("classpath:/core/");
+    }
+
+    /**
+     * @return .
+     */
+    public List<AssetStack> getAssetStack() {
+        if (assetStack == null) {
+            return Collections.emptyList();
+        }
+        return assetStack;
+    }
+
+    @Autowired(required = false)
+    public void setAssetStack(List<AssetStack> assetStack) {
+        this.assetStack = assetStack;
     }
 
 }

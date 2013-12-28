@@ -16,7 +16,7 @@ import eu.haslgruebler.core.ui.impl.CoreWebConfiguration;
  */
 @EnableWebMvc
 @Configuration
-@Import(value = { CoreWebConfiguration.class, BootstrapConfiguration.class })
+@Import(value = { BootstrapConfiguration.class, CoreWebConfiguration.class })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 }
