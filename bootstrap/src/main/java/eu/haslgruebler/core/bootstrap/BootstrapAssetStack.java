@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import eu.haslgruebler.core.ui.api.AssetStack;
 import eu.haslgruebler.core.ui.api.CSSAsset;
+import eu.haslgruebler.core.ui.api.CoreWebConstants;
 import eu.haslgruebler.core.ui.api.JavascriptAsset;
 
 /**
@@ -40,7 +41,7 @@ public class BootstrapAssetStack extends AssetStack {
                         "bootstrap-timepicker", "3.0.3", "/bootstrap/angular/timepicker.js", "bootstrap-init"), new JavascriptAsset("bootstrap-tooltip", "3.0.3", "/bootstrap/angular/tooltip.js", "bootstrap-init"), new JavascriptAsset("bootstrap-transition", "3.0.3",
                         "/bootstrap/angular/transition.js", "bootstrap-init"), new JavascriptAsset("bootstrap-typeahead", "3.0.3", "/bootstrap/angular/typeahead.js", "bootstrap-init"), new JavascriptAsset("bootstrap-init", "3.0.3", "/bootstrap/angular/init.js", "angular")
 
-        ), Collections.singleton(new CSSAsset("bootstrap", "3.0.3", "/bootstrap/css/bootstrap.min.css", (String) null)));
+        ), Collections.singleton(new CSSAsset("bootstrap", "3.0.3", "/bootstrap/css/bootstrap.min.css", CoreWebConstants.NO_DEPS)));
 
     }
 }

@@ -1,6 +1,7 @@
 package eu.haslgruebler.core.ui.impl;
 
 import eu.haslgruebler.core.ui.api.AssetStack;
+import eu.haslgruebler.core.ui.api.CoreWebConstants;
 import eu.haslgruebler.core.ui.api.JavascriptAsset;
 
 /**
@@ -16,7 +17,7 @@ public class AngularAssetStack extends AssetStack {
      * 
      */
     public AngularAssetStack() {
-        super(new JavascriptAsset("angular", "1.2.6", "/core-resources/angular/angular.min.js", null));
+        super(new JavascriptAsset("angular", "1.2.6", "/core-resources/angular/angular.min.js", CoreWebConstants.NO_DEPS));
     }
 
 }

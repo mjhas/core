@@ -16,4 +16,8 @@ public final class CoreWebConstants {
      * view name for the core web
      */
     public static final String CORE_WEB_VIEW = "core/root";
+    /**
+     * no dependencies placeholder
+     */
+    public static final String[] NO_DEPS = new String[0];
 }

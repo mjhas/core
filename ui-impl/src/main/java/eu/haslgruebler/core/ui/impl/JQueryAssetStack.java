@@ -1,5 +1,6 @@
 package eu.haslgruebler.core.ui.impl;
 
+import eu.haslgruebler.core.ui.api.CoreWebConstants;
 import eu.haslgruebler.core.ui.api.JavascriptAsset;
 
 /**
@@ -12,7 +13,7 @@ public class JQueryAssetStack extends eu.haslgruebler.core.ui.api.AssetStack {
      * 
      */
     public JQueryAssetStack() {
-        super(new JavascriptAsset("jquery", "2.0.3", "/core-resources/jquery/jquery.min.js", (String) null));
+        super(new JavascriptAsset("jquery", "2.0.3", "/core-resources/jquery/jquery.min.js", CoreWebConstants.NO_DEPS));
     }
 
 }
