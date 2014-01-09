@@ -17,7 +17,7 @@ public class AssetStack {
     /**
      * 
      */
-    private AssetStack() {
+    protected AssetStack() {
         javaScriptAssets = new LinkedList<JavascriptAsset>();
         cssAssets = new LinkedList<CSSAsset>();
     }
@@ -71,6 +71,15 @@ public class AssetStack {
         this.javaScriptAssets.clear();
         if (javaScriptAssets != null) {
             this.javaScriptAssets.addAll(javaScriptAssets);
+        }
+    }
+    
+    /**
+     * @param javaScriptAsset .
+     */
+    public void addJavaScriptAssets(JavascriptAsset javaScriptAsset) {
+        if (javaScriptAssets != null) {
+            this.javaScriptAssets.add(javaScriptAsset);
         }
     }
 

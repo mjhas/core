@@ -1,33 +1,29 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true"%>
 <!doctype html>
 <html xmlns:ng="http://angularjs.org">
 <head>
 <meta charset="utf-8">
-<title>Core App</title>
+<title><c:choose><c:when test="${empty pageTitle}"><spring:message code="core.pageTitle"/></c:when><c:otherwise><spring:message code="${pageTitle}"/></c:otherwise></c:choose></title>
 <c:forEach var="css" items="${cssStack}">
     <link rel="stylesheet" href="<spring:url value="${css.url}" />" />
 </c:forEach>
 <c:forEach var="js" items="${jsStack}">
+    <!-- ${js.angularModuleName} -->
     <script src="<spring:url value="${js.url}" />"></script>
 </c:forEach>
-<script type="text/javascript">
-var menuApp = angular.module('menuApp',
-        [ 'ui.bootstrap.dropdownToggle' ]);
-menuApp.controller('menuController', function($scope) {
-});
-</script>
 <c:forEach var="css" items="${pageCssStack}">
     <link rel="stylesheet" href="<spring:url value="${css.url}" />" />
 </c:forEach>
 <c:forEach var="js" items="${pageJsStack}">
+    <!-- ${js.angularModuleName} -->
     <script src="<spring:url value="${js.url}" />"></script>
 </c:forEach>
 </head>
 <body>
-    <nav id="navigation" class="navbar navbar-default" role="navigation" ng:controller="menuController">
+    <nav id="navigation" class="navbar navbar-default" role="navigation" ng-controller="coreMenuController">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -65,13 +61,19 @@ menuApp.controller('menuController', function($scope) {
         </div>
         <!-- /.navbar-collapse -->
     </nav>
-    <script type="text/javascript">
-    angular.bootstrap($('#navigation'), [ 'menuApp' ]);
-    </script>
+
+    
     <div class="container">
         <c:if test="${ page != null }">
             <jsp:include page="${page}" />
         </c:if>
     </div>
+    <script type="text/javascript">
+    <c:set var="emptyAngularModuleList" scope="request" value="" />
+    angular.bootstrap(document, [ 
+<c:forEach var="js" items="${jsStack}"><c:if test="${not empty js.angularModuleName}"><c:if test="${not empty emptyAngularModuleList}">,</c:if>'${js.angularModuleName}'<c:set var="emptyAngularModuleList" scope="request" value="1" /></c:if> </c:forEach>
+<c:forEach var="js" items="${pageJsStack}"><c:if test="${not empty js.angularModuleName}"><c:if test="${not empty emptyAngularModuleList}">,</c:if>'${js.angularModuleName}'<c:set var="emptyAngularModuleList" scope="request" value="1" /></c:if> </c:forEach>
+    ]);
+    </script>
 </body>
 </html>

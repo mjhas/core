@@ -8,6 +8,8 @@ import java.util.Arrays;
  * 
  */
 public final class JavascriptAsset extends AbstractAsset {
+    private String angularModuleName;
+
     /**
      * @see AbstractAsset#AbstractAsset(String, String)
      * @param provide .
@@ -41,6 +43,20 @@ public final class JavascriptAsset extends AbstractAsset {
     @Override
     public String toString() {
         return "JavascriptAsset [provides()=" + Arrays.toString(provides().toArray()) + "]";
+    }
+
+    public String getAngularModuleName() {
+        return angularModuleName;
+    }
+
+    /**
+     * setting the AngularModuleName will bootstrap the angular application with
+     * the given angular module
+     * 
+     * @param angularModuleName .
+     */
+    public void setAngularModuleName(String angularModuleName) {
+        this.angularModuleName = angularModuleName;
     }
 
 }

@@ -17,7 +17,7 @@ public class AngularAssetStack extends AssetStack {
      * 
      */
     public AngularAssetStack() {
-        super(new JavascriptAsset("angular", "1.2.6", "/core-resources/angular/angular.min.js", CoreWebConstants.NO_DEPS));
+        super(new JavascriptAsset("angular", "1.2.7", "/core-resources/angular/angular.js", CoreWebConstants.NO_DEPS));
     }
 
 }

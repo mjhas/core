@@ -4,8 +4,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -91,6 +93,24 @@ public class CoreWebConfiguration extends WebMvcConfigurerAdapter {
 
     /**
      * 
+     * @return {@link AngularRouteAssetStack}
+     */
+    @Bean
+    public AngularRouteAssetStack angularRouteAssetStack() {
+        return new AngularRouteAssetStack();
+    }
+
+    /**
+     * 
+     * @return {@link AngularRouteAssetStack}
+     */
+    @Bean
+    public CoreAssetStack coreAssetStack() {
+        return new CoreAssetStack();
+    }
+
+    /**
+     * 
      * @return {@link AngularGridAssetStack}
      */
     @Bean
@@ -141,6 +161,19 @@ public class CoreWebConfiguration extends WebMvcConfigurerAdapter {
     @Autowired(required = false)
     public void setAssetStack(List<AssetStack> assetStack) {
         this.assetStack = assetStack;
+    }
+    
+    /**
+     * register a MessageSource for internationalisation
+     * 
+     * @return {@link MessageSource} for i18n
+     */
+    @Bean
+    public MessageSource messageSource() {
+        final ReloadableResourceBundleMessageSource ret = new ReloadableResourceBundleMessageSource();
+        ret.setBasename("classpath:core.messages");
+        ret.setDefaultEncoding("UTF-8");
+        return ret;
     }
 
 }

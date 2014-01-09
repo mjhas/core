@@ -18,6 +18,8 @@ public abstract class CorePageController {
 
     private String pageName;
 
+    private String pageTitle;
+
     /**
      * Default Constructor
      */
@@ -70,6 +72,38 @@ public abstract class CorePageController {
     }
 
     /**
+     * @param pageJavascript .
+     */
+    public void addJavascriptAsset(JavascriptAsset pageJavascript) {
+        if (pageJavascript != null) {
+            this.pageJavaScriptStack.add(pageJavascript);
+        }
+    }
+
+    public String getPageTitle() {
+        return pageTitle;
+    }
+
+    /**
+     * set the page title has to be a message code found in
+     * {@link org.springframework.context.MessageSource}
+     * 
+     * @param pageTitle a message code
+     */
+    public void setPageTitle(String pageTitle) {
+        this.pageTitle = pageTitle;
+    }
+
+    /**
+     * @param cssAsset .
+     */
+    public void addCssAsset(CSSAsset cssAsset) {
+        if (cssAsset != null) {
+            this.pageCssStack.add(cssAsset);
+        }
+    }
+
+    /**
      * register the root page
      * 
      * @return {@link ModelAndView}
@@ -81,6 +115,7 @@ public abstract class CorePageController {
         mav.addObject("pageJsStack", pageJavaScriptStack);
         mav.addObject("pageCssStack", pageCssStack);
         mav.addObject("page", pageName);
+        mav.addObject("pageTitle", pageTitle);
         return mav;
     }
 
