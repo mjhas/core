@@ -1,0 +1,10 @@
+rootProject.name = 'core-parent'
+include ':ui-api'
+include ':ui-impl'
+include ':bootstrap'
+include ':webapp'
+
+project(':ui-api').projectDir = "$rootDir/ui-api" as File
+project(':ui-impl').projectDir = "$rootDir/ui-impl" as File
+project(':bootstrap').projectDir = "$rootDir/bootstrap" as File
+project(':webapp').projectDir = "$rootDir/webapp" as File

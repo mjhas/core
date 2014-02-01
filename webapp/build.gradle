@@ -1,0 +1,25 @@
+group = 'eu.haslgruebler.core'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+
+description = 'CORE Webapp'
+
+eclipse {
+  wtp {
+    facet {
+      facet name: 'jst.web', version: '3.0'
+      facet name: 'java', version: '1.6'
+      facet name: 'wst.jsdt.web', version: '1.0'
+    }
+  }
+}
+
+
+dependencies {
+    compile group: 'ch.qos.logback', name: 'logback-core', version:'1.0.13'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version:'1.0.13'
+  compile project(':bootstrap')
+    compile group: 'org.springframework', name: 'spring-web', version:'3.2.6.RELEASE'
+  compile project(':ui-api')
+  compile project(':ui-impl')
+}

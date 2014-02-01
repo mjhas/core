@@ -1,0 +1,24 @@
+allprojects  {
+  apply plugin: 'maven'
+  group = 'eu.haslgruebler'
+version = '0.3-SNAPSHOT'
+}
+
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'eclipse'
+  apply plugin: 'eclipse-wtp'
+  sourceCompatibility = 1.6
+  targetCompatibility = 1.6
+
+  
+  repositories {
+    mavenLocal()
+    
+    maven { url "http://repo.maven.apache.org/maven2" }
+  }
+
+  
+  
+  
+}
