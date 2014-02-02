@@ -1,5 +1,6 @@
 package eu.haslgruebler.core.ui.api;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -7,16 +8,16 @@ import java.util.Set;
  * @author Michael Haslgrübler
  * 
  */
-public interface Asset extends Comparable<Asset> {
+public interface Asset<E> extends Comparable<Asset<E>> {
     /**
      * @return a {@link Set} of {@link Provide}'s
      */
-    Set<Provide> getProvides();
+    Collection<Provide> getProvides();
 
     /**
      * @return a {@link Set} of {@link Dependency}'s
      */
-    Set<Dependency> getDependencies();
+    Collection<Dependency> getDependencies();
 
     /**
      * @see Asset#getProvides()
@@ -35,5 +36,11 @@ public interface Asset extends Comparable<Asset> {
      * @return the context URL of the asset
      */
     String getUrl();
+
+    /**
+     * 
+     * @return return the first provide
+     */
+    String getProvide();
 
 }

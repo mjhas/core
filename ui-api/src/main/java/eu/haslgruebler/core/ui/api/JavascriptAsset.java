@@ -7,7 +7,7 @@ import java.util.Arrays;
  * @author Michael Haslgrübler
  * 
  */
-public final class JavascriptAsset extends AbstractAsset {
+public final class JavascriptAsset extends AbstractAsset<JavascriptAsset> {
     private String angularModuleName;
 
     /**
@@ -58,5 +58,6 @@ public final class JavascriptAsset extends AbstractAsset {
     public void setAngularModuleName(String angularModuleName) {
         this.angularModuleName = angularModuleName;
     }
-
+    
+    
 }

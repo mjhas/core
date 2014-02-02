@@ -14,7 +14,7 @@ public class CoreAssetStack extends AssetStack {
      */
     public CoreAssetStack() {
         super();
-        JavascriptAsset coreMenu = new JavascriptAsset("core-menu", "0.3", "/core-resources/core/menu.js", "angular", "angular-route", "bootstrap");
+        JavascriptAsset coreMenu = new JavascriptAsset("core-menu", "0.3", "/core-resources/core/menu.js", "angular", "angular-route", "bootstrap-dropdownToggle");
         coreMenu.setAngularModuleName("core.menu");
         addJavaScriptAssets(coreMenu);
     }

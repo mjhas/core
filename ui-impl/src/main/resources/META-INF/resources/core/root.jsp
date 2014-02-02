@@ -1,26 +1,34 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true"%>
 <!doctype html>
 <html xmlns:ng="http://angularjs.org">
 <head>
 <meta charset="utf-8">
-<title><c:choose><c:when test="${empty pageTitle}"><spring:message code="core.pageTitle"/></c:when><c:otherwise><spring:message code="${pageTitle}"/></c:otherwise></c:choose></title>
+<title><c:choose>
+        <c:when test="${empty pageTitle}">
+            <spring:message code="core.pageTitle" />
+        </c:when>
+        <c:otherwise>
+            <spring:message code="${pageTitle}" />
+        </c:otherwise>
+    </c:choose></title>
 <c:forEach var="css" items="${cssStack}">
     <link rel="stylesheet" href="<spring:url value="${css.url}" />" />
 </c:forEach>
-<c:forEach var="js" items="${jsStack}">
+<script data-main="core/main.js" src="<spring:url value="/core-resources/require/require.js" />"></script>
+<%-- <c:forEach var="js" items="${jsStack}">
     <!-- ${js.angularModuleName} -->
     <script src="<spring:url value="${js.url}" />"></script>
-</c:forEach>
+</c:forEach> --%>
 <c:forEach var="css" items="${pageCssStack}">
     <link rel="stylesheet" href="<spring:url value="${css.url}" />" />
 </c:forEach>
-<c:forEach var="js" items="${pageJsStack}">
-    <!-- ${js.angularModuleName} -->
-    <script src="<spring:url value="${js.url}" />"></script>
-</c:forEach>
+<%-- <c:forEach var="js" items="${pageJsStack}"> --%>
+<%--     ${js.angularModuleName} --%>
+<%--     <script src="<spring:url value="${js.url}" />"></script> --%>
+<%-- </c:forEach> --%>
 </head>
 <body>
     <nav id="navigation" class="navbar navbar-default" role="navigation" ng-controller="coreMenuController">
@@ -62,18 +70,15 @@
         <!-- /.navbar-collapse -->
     </nav>
 
-    
+
     <div class="container">
         <c:if test="${ page != null }">
             <jsp:include page="${page}" />
         </c:if>
     </div>
     <script type="text/javascript">
-    <c:set var="emptyAngularModuleList" scope="request" value="" />
-    angular.bootstrap(document, [ 
-<c:forEach var="js" items="${jsStack}"><c:if test="${not empty js.angularModuleName}"><c:if test="${not empty emptyAngularModuleList}">,</c:if>'${js.angularModuleName}'<c:set var="emptyAngularModuleList" scope="request" value="1" /></c:if> </c:forEach>
-<c:forEach var="js" items="${pageJsStack}"><c:if test="${not empty js.angularModuleName}"><c:if test="${not empty emptyAngularModuleList}">,</c:if>'${js.angularModuleName}'<c:set var="emptyAngularModuleList" scope="request" value="1" /></c:if> </c:forEach>
-    ]);
+
+    
     </script>
 </body>
 </html>

@@ -60,4 +60,19 @@ public class CoreWebController {
         mav.addObject("menuList", menuList);
         return mav;
     }
+    
+    /**
+     * main.js page of the context
+     * 
+     * @return {@link ModelAndView}
+     */
+    @RequestMapping(value = "/core/main.js", method = RequestMethod.GET)
+    public ModelAndView getMainJS() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("core/main");
+        mav.addObject("jsStack", javaScriptStack);
+        mav.addObject("cssStack", cssStack);
+        mav.addObject("menuList", menuList);
+        return mav;
+    }
 }

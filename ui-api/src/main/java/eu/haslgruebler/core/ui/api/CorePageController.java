@@ -118,5 +118,21 @@ public abstract class CorePageController {
         mav.addObject("pageTitle", pageTitle);
         return mav;
     }
+    
+    /**
+     * register the root page
+     * 
+     * @return {@link ModelAndView}
+     */
+    @RequestMapping(value = "/core/main.js")
+    public ModelAndView getMainJS() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("forward:/core/main.js");
+        mav.addObject("pageJsStack", pageJavaScriptStack);
+        mav.addObject("pageCssStack", pageCssStack);
+        mav.addObject("page", pageName);
+        mav.addObject("pageTitle", pageTitle);
+        return mav;
+    }
 
 }

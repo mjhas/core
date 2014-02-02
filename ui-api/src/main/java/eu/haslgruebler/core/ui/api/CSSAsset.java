@@ -6,7 +6,7 @@ import java.util.Arrays;
  * @author Michael Haslgrübler
  * 
  */
-public final class CSSAsset extends AbstractAsset {
+public final class CSSAsset extends AbstractAsset<CSSAsset> {
     /**
      * @see AbstractAsset#AbstractAsset(String, String)
      * @param provide .
