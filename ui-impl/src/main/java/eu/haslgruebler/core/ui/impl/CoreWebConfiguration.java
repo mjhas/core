@@ -4,10 +4,14 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -44,6 +48,28 @@ public class CoreWebConfiguration extends WebMvcConfigurerAdapter {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("lang");
         return localeChangeInterceptor;
+    }
+
+    /**
+     * A {@link PropertyPlaceholderConfigurer} for "core.web${my.property}"
+     * properties
+     * 
+     * @return {@link PropertyPlaceholderConfigurer}
+     */
+    @Bean
+    public static PropertyPlaceholderConfigurer coreWebPropertyPlaceholderConfigurer() {
+        PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+        ppc.setPlaceholderPrefix(CoreWebConfigurer.PLACEHOLDER_PREFIX);
+        Resource[] resources;
+        ClassPathResource cpr = new ClassPathResource("core.web.properties");
+        if (System.getProperty("core.web.propertiesFile") == null) {
+            resources = new Resource[] { cpr };
+        } else {
+            resources = new Resource[] { cpr, new FileSystemResource(System.getProperty("core.web.propertiesFile")) };
+        }
+        ppc.setLocations(resources);
+        ppc.setIgnoreUnresolvablePlaceholders(true);
+        return ppc;
     }
 
     @Override
@@ -140,7 +166,15 @@ public class CoreWebConfiguration extends WebMvcConfigurerAdapter {
      */
     @Bean
     public CoreWebController coreWebController() {
-        return new CoreWebController(getMenuItemList(), getAssetStack());
+        return new CoreWebController(getMenuItemList(), getAssetStack(), coreWebConfigurer());
+    }
+
+    /**
+     * @return {@link eu.haslgruebler.core.ui.api.CoreWebConfiguration}
+     */
+    @Bean
+    public eu.haslgruebler.core.ui.api.CoreWebConfiguration coreWebConfigurer() {
+        return new CoreWebConfigurer();
     }
 
     @Override
@@ -162,7 +196,7 @@ public class CoreWebConfiguration extends WebMvcConfigurerAdapter {
     public void setAssetStack(List<AssetStack> assetStack) {
         this.assetStack = assetStack;
     }
-    
+
     /**
      * register a MessageSource for internationalisation
      * 

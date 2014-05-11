@@ -6,6 +6,7 @@
 <html xmlns:ng="http://angularjs.org">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><c:choose>
         <c:when test="${empty pageTitle}">
             <spring:message code="core.pageTitle" />
@@ -57,28 +58,40 @@
                     </c:choose>
                 </c:forEach>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown"><a href="#" class="dropdown-toggle">Language <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="<spring:url value="" />?lang=de">Deutsch</a></li>
-                        <li class="divider"></li>
-                        <li><a href="<spring:url value="" />?lang=en">English</a></li>
-                    </ul></li>
-                <li><a href="#">Login Logout</a></li>
-            </ul>
+            <c:if test="${navbarRight}">
+                <ul class="nav navbar-nav navbar-right">
+                    <c:if test="${languageSwitch}">
+                        <li class="dropdown"><a href="#" class="dropdown-toggle">Language <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<spring:url value="" />?lang=de">Deutsch</a></li>
+                                <li class="divider"></li>
+                                <li><a href="<spring:url value="" />?lang=en">English</a></li>
+                            </ul></li>
+                    </c:if>
+                    <c:if test="${loginLogoutSwitch}">
+                        <li><a href="#">Login Logout</a></li>
+                    </c:if>
+                </ul>
+            </c:if>
         </div>
         <!-- /.navbar-collapse -->
     </nav>
 
 
     <div class="container">
-        <c:if test="${ page != null }">
-            <jsp:include page="${page}" />
-        </c:if>
+        <c:choose>
+            <c:when test="${ page != null }">
+                <jsp:include page="${page}" />
+            </c:when>
+            <c:otherwise>
+                <c:if test="${ redirect != null }">
+                    <c:redirect url="${redirect}" />
+                </c:if>
+            </c:otherwise>
+        </c:choose>
     </div>
     <script type="text/javascript">
-
-    
-    </script>
+					
+				</script>
 </body>
 </html>
